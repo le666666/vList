@@ -1,3 +1,16 @@
+# 特征简介
+```
+1. 用户名密码鉴权
+2. 隐藏/忽略 某文件
+3. 隐藏/忽略 某文件夹
+4. 正则匹配支持
+5. 302 链接 映射成文件
+6. 文件断点续传
+7. 读取配置文件
+8. WebDVA 只读模式
+9. index.html
+```
+
 # 配置文件 (config.json)
 ```
 {
@@ -9,7 +22,7 @@
   # 映射到URL目录, 默认为根目录.
   
   "FolderSize": false,
-  # 计算文件夹大小, 递归遍历累加. (开启可能会影响性能)
+  # 计算文件夹大小, 递归遍历累加. (开启会影响性能)
   
   "AuthItem": "user1:passwd1@/The/File/Path|user2:passwd2@/The/Folder/Path",
   # 使用 HTTP 401 加密多个目录或者文件.
@@ -49,10 +62,17 @@
 ```
 ./vList -h
 ./vList -w "/var/www"
-./vList -q -w "/var/www" -bind 0.0.0.0 -port 8080
+./vList -d -w "/var/www" -bind 0.0.0.0 -port 8080
+./vList -bind 0.0.0.0 -port 8080 -w "/var/www" -webdav=false -hide=fasle -size=true
+
+# -h 显示帮助
+# -q 安静模式(不显示日志)
+# -d 后台运行(在Windows下无效)
 ```
 
-## 应用配置文件(如果同目录中有 config.json, 则会自动读取.)
+## 应用配置文件
+##### 如果同目录中有 `config.json`, 则会自动读取.
+##### 如果同目录中有 `index.html`, 则会自动读取.
 ```
 ./vList
 ./vList -c "/配置文件绝对路径/config.json" -bind 0.0.0.0 -port 8080
